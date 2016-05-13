@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  service_one:
+    image: php
+    command: php -S 0.0.0.0:80
+    working_dir: /app
+    ports:
+      - 0.0.0.0:7080:80
+    volumes:
+      - ./applications/app1:/app
+    hostname: service_one
+  service_two:
+    build: ./applications/app2
+    links:
+      - service_one:www.api-ep.com
+    ports:
+      - 0.0.0.0:7090:80
+    volumes:
+      - ./applications/app2:/app
+    hostname: service_two
